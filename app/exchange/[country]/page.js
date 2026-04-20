@@ -5,10 +5,74 @@ import Link from 'next/link'
 export const revalidate = 86400 // ISR revalidate every day
 export const dynamicParams = true // Enable ISR for all countries
 
+
+
+
+
+
+
+
+
+
+
+
+
 export async function generateStaticParams() {
-  return ASIA_COUNTRIES.map(country => ({
-    country: country.code.toLowerCase()
-  }))
+  return [
+    { slug: 'pakistan' },
+    { slug: 'india' },
+    { slug: 'indonesia' },
+    { slug: 'philippines' },
+    { slug: 'bangladesh' },
+    { slug: 'malaysia' },
+    { slug: 'vietnam' },
+    { slug: 'thailand' },
+    { slug: 'south-korea' },
+    { slug: 'singapore' },
+    { slug: 'uae' },
+    { slug: 'saudi-arabia' },
+    { slug: 'sri-lanka' },
+    { slug: 'nepal' },
+    { slug: 'japan' },
+    { slug: 'china' },
+    { slug: 'myanmar' },
+    { slug: 'cambodia' },
+    { slug: 'hong-kong' },
+    { slug: 'taiwan' },
+    { slug: 'iran' },
+    { slug: 'iraq' },
+    { slug: 'jordan' },
+    { slug: 'kuwait' },
+    { slug: 'qatar' },
+    { slug: 'oman' },
+    { slug: 'bahrain' },
+    { slug: 'turkey' },
+    { slug: 'egypt' },
+    { slug: 'nigeria' },
+    { slug: 'kenya' },
+    { slug: 'ghana' },
+    { slug: 'south-africa' },
+    { slug: 'ethiopia' },
+    { slug: 'tanzania' },
+    { slug: 'cameroon' },
+    { slug: 'senegal' },
+    { slug: 'morocco' },
+    { slug: 'algeria' },
+    { slug: 'tunisia' },
+    { slug: 'libya' },
+    { slug: 'sudan' },
+    { slug: 'uganda' },
+    { slug: 'zimbabwe' },
+    { slug: 'zambia' },
+    { slug: 'mozambique' },
+    { slug: 'angola' },
+    { slug: 'botswana' },
+    { slug: 'namibia' },
+    { slug: 'lesotho' },
+    { slug: 'swaziland' },
+    { slug: 'rwanda' },
+    { slug: 'burundi' }
+  ]
 }
 
 export async function generateMetadata({ params }) {

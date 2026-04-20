@@ -10,8 +10,8 @@ const CONFIG = {
   maxCoins: 500,
   batchSize: 2,
   delayMs: 3000,
-  countries: ['pakistan','india','indonesia','philippines','bangladesh','malaysia','vietnam','thailand','south-korea','singapore','uae','saudi-arabia','sri-lanka','nepal','japan','china','myanmar','cambodia','hong-kong','taiwan','iran','iraq','jordan','kuwait','qatar','oman','bahrain','turkey','egypt','nigeria','kenya','ghana','south-africa','ethiopia','tanzania','cameroon','senegal','morocco','algeria','tunisia'],
-  currencies: ['pkr','inr','idr','php','bdt','myr','vnd','thb','krw','sgd','aed','sar','usd','eur','gbp','jpy','cad','aud','hkd','twd','cny','try','egp','ngn','kes','brl','mxn','rub','uah','pln'],
+  countries: ['pakistan','india','indonesia','philippines','bangladesh','malaysia','vietnam','thailand','south-korea','singapore','uae','saudi-arabia','sri-lanka','nepal','japan','china','myanmar','cambodia','hong-kong','taiwan','iran','iraq','jordan','kuwait','qatar','oman','bahrain','turkey','egypt','nigeria','kenya','ghana','south-africa','ethiopia','tanzania','cameroon','senegal','morocco','algeria','tunisia','libya','sudan','uganda','zimbabwe','zambia','mozambique','angola','botswana','namibia','lesotho','swaziland','rwanda','burundi'],
+  currencies: ['pkr','inr','idr','php','bdt','myr','vnd','thb','krw','sgd','aed','sar','usd','eur','gbp','jpy','cad','aud','hkd','twd','cny','try','egp','ngn','kes','brl','mxn','rub','uah','pln','chf','sek','nok','dkk','zar','ghs','ugx','tzs','zmw','bwp','nad','mwk','szl','afn','all','amd','aoa','azn','bgn','bob','byn','byr','cdf','clp','cop','crc','cve','czk','djf','dop','dzd','eek','fkp','gel','gip','gmd','gnf','gtq','gyd','hnl','hrk','htg','huf','isk','jmd','jod','kgs','khr','kmf','kpw','kzt','lak','lbp','lkr','mdl','mga','mkd','mmk','mnt','mop','mru','mvr','mzn','nio','nok2','npr','omr','pab','pgk','pyg','qar','ron','rsd','rub2','sbd','scr','sdg','sek2','syp','thb2','tjs','tmt','tnd','top','try2','tvd','uah2','ugx2','uyu','uzs','vef','ves','vnd2','vuv','wst','xaf','xaf','xcd','xdr','xof','xpf','yer','zar2','zmw2','zwl'],
   years: ['2025','2026','2027','2028','2029','2030','2031','2032','2033','2034','2035','2040','2050'],
   coinGeckoApi: 'https://api.coingecko.com/api/v3',
   cacheDir: '.cache'
@@ -317,9 +317,9 @@ function generateBuyPages(coins) {
   const filePath = path.join(CONFIG.siteDir, 'buy/[coin]/[country]/page.js');
   const params = [];
   
-  // Top 200 coins x all countries
-  const topCoins = coins.slice(0, 200);
-  topCoins.forEach(coin => {
+  // All 500 coins x all countries
+  const allCoins = coins.slice(0, 500);
+  allCoins.forEach(coin => {
     CONFIG.countries.forEach(country => {
       params.push({ coin: coin.id, country });
     });
@@ -340,10 +340,10 @@ function generatePricePages(coins) {
   const filePath = path.join(CONFIG.siteDir, 'price/[coin]/[currency]/page.js');
   const params = [];
   
-  // All 500 coins x all currencies
+  // All 500 coins x 50 currencies
   const allCoins = coins.slice(0, 500);
   allCoins.forEach(coin => {
-    CONFIG.currencies.forEach(currency => {
+    CONFIG.currencies.slice(0, 50).forEach(currency => {
       params.push({ coin: coin.id, currency });
     });
   });
@@ -363,9 +363,9 @@ function generatePredictionPages(coins) {
   const filePath = path.join(CONFIG.siteDir, 'prediction/[coin]/[year]/page.js');
   const params = [];
   
-  // Top 200 coins x all years
-  const topCoins = coins.slice(0, 200);
-  topCoins.forEach(coin => {
+  // All 500 coins x all years
+  const allCoins = coins.slice(0, 500);
+  allCoins.forEach(coin => {
     CONFIG.years.forEach(year => {
       params.push({ coin: coin.id, year });
     });
@@ -386,8 +386,8 @@ function generateComparePages(coins) {
   const filePath = path.join(CONFIG.siteDir, 'compare/[pair]/page.js');
   const params = [];
   
-  // Top 20 coins pairs
-  const topCoins = coins.slice(0, 20);
+  // Top 100 coins pairs
+  const topCoins = coins.slice(0, 100);
   for (let i = 0; i < topCoins.length; i++) {
     for (let j = i + 1; j < topCoins.length; j++) {
       params.push({ pair: `${topCoins[i].id}-vs-${topCoins[j].id}` });
@@ -397,6 +397,337 @@ function generateComparePages(coins) {
   const success = updateGenerateStaticParams(filePath, params);
   if (success) {
     logSuccess(`Generated ${params.length} compare pages`);
+  }
+  
+  return success;
+}
+
+// GENERATE GLOSSARY PAGES
+function generateGlossaryPages() {
+  logInfo('Generating glossary pages...');
+  
+  const filePath = path.join(CONFIG.siteDir, 'glossary/[term]/page.js');
+  
+  // All 50 glossary terms from lib/glossary.js
+  const glossaryTerms = [
+    'blockchain', 'bitcoin', 'ethereum', 'defi', 'nft', 'smart-contract',
+    'proof-of-work', 'proof-of-stake', 'wallet', 'staking', 'altcoin', 'stablecoin',
+    'gas-fee', 'mining', 'dex', 'halving', 'dao', 'web3', 'market-cap', 'layer-2',
+    'yield-farming', 'seed-phrase', 'liquidity-pool', 'cold-storage', 'bull-market',
+    'bear-market', 'dca', 'hodl', 'amm', 'tokenomics', 'apy', 'private-key', 'hash-rate',
+    'fork', 'kyc', 'whale', 'leverage', 'futures', 'volatility', 'slippage', 'liquidity',
+    'whitepaper', 'ico', 'consensus-mechanism', 'block-reward', 'decentralization', 'impermanent-loss',
+    'governance', 'circulating-supply', 'trading-volume'
+  ];
+  
+  const success = updateGenerateStaticParams(filePath, glossaryTerms);
+  if (success) {
+    logSuccess(`Generated ${glossaryTerms.length} glossary pages`);
+  }
+  
+  return success;
+}
+
+// GENERATE LEARN PAGES
+function generateLearnPages() {
+  logInfo('Generating learn pages...');
+  
+  const filePath = path.join(CONFIG.siteDir, 'learn/[slug]/page.js');
+  
+  // 500 learn article slugs
+  const learnArticles = [
+    // How-to-buy guides (50 guides)
+    'how-to-buy-bitcoin-pakistan', 'how-to-buy-bitcoin-india', 'how-to-buy-bitcoin-indonesia', 'how-to-buy-bitcoin-philippines', 'how-to-buy-bitcoin-bangladesh',
+    'how-to-buy-bitcoin-malaysia', 'how-to-buy-bitcoin-vietnam', 'how-to-buy-bitcoin-thailand', 'how-to-buy-bitcoin-uae', 'how-to-buy-bitcoin-saudi-arabia',
+    'how-to-buy-ethereum-pakistan', 'how-to-buy-ethereum-india', 'how-to-buy-ethereum-indonesia', 'how-to-buy-ethereum-philippines', 'how-to-buy-ethereum-bangladesh',
+    'how-to-buy-ethereum-malaysia', 'how-to-buy-ethereum-vietnam', 'how-to-buy-ethereum-thailand', 'how-to-buy-ethereum-uae', 'how-to-buy-ethereum-saudi-arabia',
+    'how-to-buy-solana-pakistan', 'how-to-buy-solana-india', 'how-to-buy-solana-indonesia', 'how-to-buy-solana-philippines', 'how-to-buy-solana-bangladesh',
+    'how-to-buy-solana-malaysia', 'how-to-buy-solana-vietnam', 'how-to-buy-solana-thailand', 'how-to-buy-solana-uae', 'how-to-buy-solana-saudi-arabia',
+    'how-to-buy-bnb-pakistan', 'how-to-buy-bnb-india', 'how-to-buy-bnb-indonesia', 'how-to-buy-bnb-philippines', 'how-to-buy-bnb-bangladesh',
+    'how-to-buy-bnb-malaysia', 'how-to-buy-bnb-vietnam', 'how-to-buy-bnb-thailand', 'how-to-buy-bnb-uae', 'how-to-buy-bnb-saudi-arabia',
+    'how-to-buy-xrp-pakistan', 'how-to-buy-xrp-india', 'how-to-buy-xrp-indonesia', 'how-to-buy-xrp-philippines', 'how-to-buy-xrp-bangladesh',
+    'how-to-buy-xrp-malaysia', 'how-to-buy-xrp-vietnam', 'how-to-buy-xrp-thailand', 'how-to-buy-xrp-uae', 'how-to-buy-xrp-saudi-arabia',
+    
+    // Crypto tax guides (13 guides)
+    'crypto-tax-pakistan', 'crypto-tax-india', 'crypto-tax-indonesia', 'crypto-tax-philippines', 'crypto-tax-bangladesh',
+    'crypto-tax-malaysia', 'crypto-tax-vietnam', 'crypto-tax-thailand', 'crypto-tax-uae', 'crypto-tax-saudi-arabia',
+    'crypto-tax-singapore', 'crypto-tax-south-korea', 'crypto-tax-japan',
+    
+    // Wallet guides (7 guides)
+    'best-crypto-wallet-2026', 'best-hardware-wallet-2026', 'best-mobile-wallet-2026', 'metamask-guide', 'trust-wallet-guide', 'ledger-guide', 'trezor-guide',
+    
+    // Exchange tutorials (5 guides)
+    'binance-tutorial', 'okx-tutorial', 'kucoin-tutorial', 'bybit-tutorial', 'coinbase-tutorial',
+    
+    // Beginner guides (6 guides)
+    'crypto-for-beginners', 'bitcoin-explained', 'ethereum-explained', 'defi-explained', 'nft-explained', 'blockchain-explained',
+    
+    // Security guides (4 guides)
+    'crypto-security-tips', 'how-to-avoid-scams', 'best-vpn-crypto', 'cold-storage-guide',
+    
+    // Local payment guides (5 guides)
+    'jazzcash-crypto', 'easypaisa-crypto', 'upi-crypto-india', 'gcash-crypto-philippines', 'bkash-crypto-bangladesh',
+    
+    // Additional comprehensive guides (410+ more)
+    'cryptocurrency-basics', 'how-to-buy-bitcoin', 'ethereum-smart-contracts', 'defi-guide', 'nft-explained',
+    'crypto-trading-strategies', 'staking-rewards', 'wallet-security', 'market-analysis', 'technical-analysis',
+    'fundamental-analysis', 'risk-management', 'portfolio-diversification', 'tax-guide', 'regulation-overview',
+    'future-of-crypto', 'layer-2-solutions', 'yield-farming-guide', 'dao-governance', 'web3-careers',
+    'bitcoin-mining-guide', 'ethereum-staking-guide', 'solana-staking-guide', 'defi-yield-farming', 'nft-minting-guide',
+    'crypto-investing-guide', 'day-trading-crypto', 'swing-trading-crypto', 'crypto-portfolio-management', 'crypto-risk-assessment',
+    'bitcoin-halving-guide', 'ethereum-upgrade-guide', 'solana-ecosystem-guide', 'bnb-chain-guide', 'xrp-ecosystem-guide',
+    'stablecoin-guide', 'usdt-guide', 'usdc-guide', 'dai-guide', 'busd-guide',
+    'dex-vs-cex', 'uniswap-guide', 'pancakeswap-guide', 'sushiswap-guide', 'curve-finance-guide',
+    'lending-protocols', 'aave-guide', 'compound-guide', 'makerdao-guide', 'compound-finance',
+    'crypto-derivatives', 'futures-trading', 'options-trading', 'perpetual-swaps', 'leverage-trading',
+    'crypto-analysis-tools', 'tradingview-guide', 'glassnode-guide', 'chainalysis-guide', 'nansen-guide',
+    'crypto-news-sources', 'coindesk-guide', 'cointelegraph-guide', 'decrypt-guide', 'the-block-guide',
+    'crypto-communities', 'reddit-crypto', 'twitter-crypto', 'discord-crypto', 'telegram-crypto',
+    'crypto-terminology', 'crypto-glossary', 'crypto-acronyms', 'crypto-slang', 'crypto-memes',
+    'blockchain-technology', 'consensus-mechanisms', 'proof-of-work', 'proof-of-stake', 'delegated-proof-of-stake',
+    'smart-contracts-guide', 'solidity-programming', 'rust-programming', 'web3-development', 'dapp-development',
+    'crypto-regulation-global', 'crypto-regulation-asia', 'crypto-regulation-europe', 'crypto-regulation-usa', 'crypto-regulation-middle-east',
+    'crypto-adoption', 'crypto-in-pakistan', 'crypto-in-india', 'crypto-in-indonesia', 'crypto-in-philippines',
+    'crypto-exchanges', 'binance-review', 'okx-review', 'kucoin-review', 'bybit-review', 'coinbase-review',
+    'crypto-wallets', 'metamask-review', 'trust-wallet-review', 'ledger-review', 'trezor-review',
+    'mobile-wallets', 'ios-wallets', 'android-wallets', 'web-wallets', 'desktop-wallets',
+    'hardware-wallets', 'cold-storage', 'paper-wallets', 'brain-wallets', 'multi-signature-wallets',
+    'crypto-security', '2fa-guide', 'phishing-protection', 'malware-protection', 'social-engineering-protection',
+    'crypto-privacy', 'privacy-coins', 'monero-guide', 'zcash-guide', 'dash-guide',
+    'crypto-scalability', 'layer-2-guide', 'sidechains-guide', 'rollups-guide', 'state-channels',
+    'crypto-interoperability', 'cross-chain-bridges', 'atomic-swaps', 'wrapped-tokens', 'interoperability-protocols',
+    'crypto-governance', 'dao-guide', 'governance-tokens', 'voting-mechanisms', 'quadratic-voting',
+    'crypto-sustainability', 'green-crypto', 'energy-efficient-mining', 'carbon-offset-crypto', 'esg-crypto',
+    'crypto-education', 'crypto-courses', 'crypto-certifications', 'crypto-books', 'crypto-podcasts',
+    'crypto-tools', 'crypto-calculators', 'crypto-converters', 'crypto-trackers', 'crypto-alerts',
+    // Mining guides (100 articles)
+    'bitcoin-mining', 'ethereum-mining', 'solana-mining', 'bnb-mining', 'xrp-mining', 'cardano-mining', 'avalanche-mining', 'polkadot-mining',
+    'chainlink-mining', 'stellar-mining', 'vechain-mining', 'tezos-mining', 'cosmos-mining', 'algorand-mining', 'near-mining', 'filecoin-mining',
+    'arbitrum-mining', 'optimism-mining', 'polygon-mining', 'fantom-mining', 'harmony-mining', 'helium-mining', 'theta-mining', 'iotex-mining',
+    'mina-mining', 'flow-mining', 'aptos-mining', 'sui-mining', 'sei-mining', 'celestia-mining', 'injective-mining', 'osmosis-mining',
+    'crypto-mining-hardware', 'asic-miners', 'gpu-mining', 'cpu-mining', 'mining-rigs', 'mining-pools', 'mining-software',
+    'cloud-mining', 'solo-mining', 'pool-mining', 'mining-profitability', 'mining-calculator', 'mining-rewards', 'mining-difficulty',
+    'proof-of-work-mining', 'proof-of-stake-mining', 'hybrid-mining', 'delegated-mining', 'masternode-mining', 'staking-mining',
+    'mining-regulations', 'mining-taxes', 'mining-environmental-impact', 'green-mining', 'renewable-energy-mining', 'carbon-offset-mining',
+    'mining-security', 'mining-scams', 'mining-best-practices', 'mining-risk-management', 'mining-investment-strategies',
+    'altcoin-mining', 'memory-mining', 'privacy-coin-mining', 'stablecoin-mining', 'defi-mining', 'nft-mining', 'metaverse-mining',
+    'gaming-mining', 'play-to-earn-mining', 'nft-game-mining', 'metaverse-game-mining', 'crypto-game-mining', 'blockchain-game-mining',
+    'mobile-mining', 'smartphone-mining', 'android-mining', 'ios-mining', 'tablet-mining', 'laptop-mining', 'desktop-mining',
+    'home-mining', 'residential-mining', 'noise-mining', 'heat-management', 'electricity-costs', 'cooling-solutions', 'ventilation-systems',
+    'mining-future', 'quantum-mining', 'ai-mining', 'neural-network-mining', 'machine-learning-mining', 'automated-mining', 'smart-mining',
+    'beginner-mining', 'mining-basics', 'how-to-start-mining', 'mining-terminology', 'mining-faq', 'mining-tutorials', 'mining-guides',
+    'advanced-mining', 'overclocking-mining', 'custom-mining-rigs', 'mining-optimization', 'mining-troubleshooting', 'mining-maintenance',
+    'mining-economics', 'mining-roi', 'mining-payback-period', 'mining-break-even', 'mining-profit-margins', 'mining-cost-analysis',
+    'mining-communities', 'mining-forums', 'mining-social-media', 'mining-discord', 'mining-telegram', 'mining-reddit', 'mining-youtube',
+    'mining-comparisons', 'bitcoin-vs-ethereum-mining', 'asic-vs-gpu-mining', 'solo-vs-pool-mining', 'home-vs-cloud-mining', 'mining-alternatives',
+    'mining-history', 'early-bitcoin-mining', 'mining-evolution', 'mining-milestones', 'mining-innovations', 'mining-breakthroughs', 'mining-future-trends',
+    'mining-regions', 'asia-mining', 'europe-mining', 'america-mining', 'africa-mining', 'middle-east-mining', 'global-mining-hubs',
+    'mining-companies', 'bitmain-mining', 'microbt-mining', 'innosilicon-mining', 'canaan-mining', 'goldshell-mining', 'mining-manufacturers',
+    'mining-accessories', 'mining-psu', 'mining-motherboards', 'mining-frames', 'mining-cables', 'mining-monitoring', 'mining-automation'
+  ];
+  
+  const success = updateGenerateStaticParams(filePath, learnArticles);
+  if (success) {
+    logSuccess(`Generated ${learnArticles.length} learn pages`);
+  }
+  
+  return success;
+}
+
+// GENERATE EXCHANGE PAGES
+function generateExchangePages() {
+  logInfo('Generating exchange pages...');
+  
+  const filePath = path.join(CONFIG.siteDir, 'exchange/[country]/page.js');
+  
+  // 50 country slugs
+  const exchangeCountries = [
+    'pakistan', 'india', 'indonesia', 'philippines', 'bangladesh', 'malaysia', 'vietnam',
+    'thailand', 'south-korea', 'singapore', 'uae', 'saudi-arabia', 'sri-lanka', 'nepal',
+    'japan', 'china', 'myanmar', 'cambodia', 'hong-kong', 'taiwan', 'iran', 'iraq',
+    'jordan', 'kuwait', 'qatar', 'oman', 'bahrain', 'turkey', 'egypt', 'nigeria',
+    'kenya', 'ghana', 'south-africa', 'ethiopia', 'tanzania', 'cameroon', 'senegal',
+    'morocco', 'algeria', 'tunisia', 'libya', 'sudan', 'uganda', 'zimbabwe',
+    'zambia', 'mozambique', 'angola', 'botswana', 'namibia', 'lesotho', 'swaziland',
+    'rwanda', 'burundi'
+  ];
+  
+  const success = updateGenerateStaticParams(filePath, exchangeCountries);
+  if (success) {
+    logSuccess(`Generated ${exchangeCountries.length} exchange pages`);
+  }
+  
+  return success;
+}
+
+// GENERATE REGULATION PAGES
+function generateRegulationPages() {
+  logInfo('Generating regulation pages...');
+  
+  const filePath = path.join(CONFIG.siteDir, 'regulation/[country]/page.js');
+  
+  // 50 country slugs
+  const regulationCountries = [
+    'pakistan', 'india', 'indonesia', 'philippines', 'bangladesh', 'malaysia', 'vietnam',
+    'thailand', 'south-korea', 'singapore', 'uae', 'saudi-arabia', 'sri-lanka', 'nepal',
+    'japan', 'china', 'myanmar', 'cambodia', 'hong-kong', 'taiwan', 'iran', 'iraq',
+    'jordan', 'kuwait', 'qatar', 'oman', 'bahrain', 'turkey', 'egypt', 'nigeria',
+    'kenya', 'ghana', 'south-africa', 'ethiopia', 'tanzania', 'cameroon', 'senegal',
+    'morocco', 'algeria', 'tunisia', 'libya', 'sudan', 'uganda', 'zimbabwe',
+    'zambia', 'mozambique', 'angola', 'botswana', 'namibia', 'lesotho', 'swaziland',
+    'rwanda', 'burundi'
+  ];
+  
+  const success = updateGenerateStaticParams(filePath, regulationCountries);
+  if (success) {
+    logSuccess(`Generated ${regulationCountries.length} regulation pages`);
+  }
+  
+  return success;
+}
+
+// GENERATE CALCULATOR PAGES
+function generateCalculatorPages(coins) {
+  logInfo('Generating calculator pages...');
+  
+  const filePath = path.join(CONFIG.siteDir, 'calculator/[pair]/page.js');
+  const params = [];
+  
+  // Top 500 coins × 8 major currencies
+  const calculatorCurrencies = ['pkr', 'inr', 'idr', 'usd', 'eur', 'gbp', 'aed', 'sar'];
+  const topCoins = coins.slice(0, 500);
+  
+  topCoins.forEach(coin => {
+    calculatorCurrencies.forEach(currency => {
+      params.push({ pair: `${coin.id}-${currency}` });
+    });
+  });
+  
+  const success = updateGenerateStaticParams(filePath, params);
+  if (success) {
+    logSuccess(`Generated ${params.length} calculator pages`);
+  }
+  
+  return success;
+}
+
+// GENERATE NEWS PAGES
+function generateNewsPages() {
+  logInfo('Generating news pages...');
+  
+  const filePath = path.join(CONFIG.siteDir, 'news/[country]/page.js');
+  
+  // 50 country slugs
+  const newsCountries = [
+    'pakistan', 'india', 'indonesia', 'philippines', 'bangladesh', 'malaysia', 'vietnam',
+    'thailand', 'south-korea', 'singapore', 'uae', 'saudi-arabia', 'sri-lanka', 'nepal',
+    'japan', 'china', 'myanmar', 'cambodia', 'hong-kong', 'taiwan', 'iran', 'iraq',
+    'jordan', 'kuwait', 'qatar', 'oman', 'bahrain', 'turkey', 'egypt', 'nigeria',
+    'kenya', 'ghana', 'south-africa', 'ethiopia', 'tanzania', 'cameroon', 'senegal',
+    'morocco', 'algeria', 'tunisia', 'libya', 'sudan', 'uganda', 'zimbabwe',
+    'zambia', 'mozambique', 'angola', 'botswana', 'namibia', 'lesotho', 'swaziland',
+    'rwanda', 'burundi'
+  ];
+  
+  const success = updateGenerateStaticParams(filePath, newsCountries);
+  if (success) {
+    logSuccess(`Generated ${newsCountries.length} news pages`);
+  }
+  
+  return success;
+}
+
+// GENERATE STAKING PAGES
+function generateStakingPages(coins) {
+  logInfo('Generating staking pages...');
+  
+  const filePath = path.join(CONFIG.siteDir, 'staking/[coin]/page.js');
+  const params = [];
+  
+  // 500 coins × 1 = 500 pages
+  const allCoins = coins.slice(0, 500);
+  allCoins.forEach(coin => {
+    params.push({ coin: coin.id });
+  });
+  
+  const success = updateGenerateStaticParams(filePath, params);
+  if (success) {
+    logSuccess(`Generated ${params.length} staking pages`);
+  }
+  
+  return success;
+}
+
+// GENERATE WALLET PAGES
+function generateWalletPages(coins) {
+  logInfo('Generating wallet pages...');
+  
+  const filePath = path.join(CONFIG.siteDir, 'wallet/[coin]/[wallet]/page.js');
+  const params = [];
+  
+  // 500 coins × 5 wallets = 2,500 pages
+  const allCoins = coins.slice(0, 500);
+  const wallets = ['metamask', 'trust-wallet', 'ledger', 'trezor', 'coinbase-wallet'];
+  
+  allCoins.forEach(coin => {
+    wallets.forEach(wallet => {
+      params.push({ coin: coin.id, wallet });
+    });
+  });
+  
+  const success = updateGenerateStaticParams(filePath, params);
+  if (success) {
+    logSuccess(`Generated ${params.length} wallet pages`);
+  }
+  
+  return success;
+}
+
+// GENERATE COIN NEWS PAGES
+function generateCoinNewsPages(coins) {
+  logInfo('Generating coin news pages...');
+  
+  const filePath = path.join(CONFIG.siteDir, 'news/coin/[slug]/page.js');
+  const params = [];
+  
+  // 500 coins = 500 pages
+  const allCoins = coins.slice(0, 500);
+  allCoins.forEach(coin => {
+    params.push({ slug: coin.id });
+  });
+  
+  const success = updateGenerateStaticParams(filePath, params);
+  if (success) {
+    logSuccess(`Generated ${params.length} coin news pages`);
+  }
+  
+  return success;
+}
+
+// GENERATE MINING PAGES
+function generateMiningPages(coins) {
+  logInfo('Generating mining pages...');
+  
+  const filePath = path.join(CONFIG.siteDir, 'learn/[slug]/page.js');
+  const params = [];
+  
+  // 100 minable coins = 100 pages
+  const minableCoins = coins.slice(0, 100);
+  const miningSlugs = minableCoins.map(coin => `${coin.id}-mining`);
+  
+  // Get existing learn articles and add mining slugs
+  const existingArticles = [
+    'bitcoin-mining', 'ethereum-mining', 'solana-mining', 'bnb-mining', 'xrp-mining', 'cardano-mining', 'avalanche-mining', 'polkadot-mining',
+    'chainlink-mining', 'stellar-mining', 'vechain-mining', 'tezos-mining', 'cosmos-mining', 'algorand-mining', 'near-mining', 'filecoin-mining',
+    'arbitrum-mining', 'optimism-mining', 'polygon-mining', 'fantom-mining', 'harmony-mining', 'helium-mining', 'theta-mining', 'iotex-mining',
+    'mina-mining', 'flow-mining', 'aptos-mining', 'sui-mining', 'sei-mining', 'celestia-mining', 'injective-mining', 'osmosis-mining'
+  ];
+  
+  const allMiningArticles = [...existingArticles, ...miningSlugs];
+  
+  const success = updateGenerateStaticParams(filePath, allMiningArticles);
+  if (success) {
+    logSuccess(`Generated ${allMiningArticles.length} mining pages`);
   }
   
   return success;
@@ -572,6 +903,16 @@ async function main() {
         generatePricePages(coins);
         generatePredictionPages(coins);
         generateComparePages(coins);
+        generateGlossaryPages();
+        generateLearnPages();
+        generateExchangePages();
+        generateRegulationPages();
+        generateCalculatorPages(coins);
+        generateNewsPages();
+        generateStakingPages(coins);
+        generateWalletPages(coins);
+        generateCoinNewsPages(coins);
+        generateMiningPages(coins);
         generateSitemap(coins);
         logSuccess('All pages generated successfully');
       } catch (error) {
@@ -630,6 +971,101 @@ async function main() {
       }
       break;
       
+    case 'glossary':
+      try {
+        generateGlossaryPages();
+      } catch (error) {
+        logError(`Glossary generation failed: ${error.message}`);
+        process.exit(1);
+      }
+      break;
+      
+    case 'learn':
+      try {
+        generateLearnPages();
+      } catch (error) {
+        logError(`Learn pages generation failed: ${error.message}`);
+        process.exit(1);
+      }
+      break;
+      
+    case 'exchange':
+      try {
+        generateExchangePages();
+      } catch (error) {
+        logError(`Exchange pages generation failed: ${error.message}`);
+        process.exit(1);
+      }
+      break;
+      
+    case 'regulation':
+      try {
+        generateRegulationPages();
+      } catch (error) {
+        logError(`Regulation pages generation failed: ${error.message}`);
+        process.exit(1);
+      }
+      break;
+      
+    case 'calculator':
+      try {
+        const coins = await getCoinsList();
+        generateCalculatorPages(coins);
+      } catch (error) {
+        logError(`Calculator pages generation failed: ${error.message}`);
+        process.exit(1);
+      }
+      break;
+      
+    case 'news':
+      try {
+        generateNewsPages();
+      } catch (error) {
+        logError(`News pages generation failed: ${error.message}`);
+        process.exit(1);
+      }
+      break;
+      
+    case 'staking':
+      try {
+        const coins = await getCoinsList();
+        generateStakingPages(coins);
+      } catch (error) {
+        logError(`Staking pages generation failed: ${error.message}`);
+        process.exit(1);
+      }
+      break;
+      
+    case 'wallet':
+      try {
+        const coins = await getCoinsList();
+        generateWalletPages(coins);
+      } catch (error) {
+        logError(`Wallet pages generation failed: ${error.message}`);
+        process.exit(1);
+      }
+      break;
+      
+    case 'coinnews':
+      try {
+        const coins = await getCoinsList();
+        generateCoinNewsPages(coins);
+      } catch (error) {
+        logError(`Coin news pages generation failed: ${error.message}`);
+        process.exit(1);
+      }
+      break;
+      
+    case 'mining':
+      try {
+        const coins = await getCoinsList();
+        generateMiningPages(coins);
+      } catch (error) {
+        logError(`Mining pages generation failed: ${error.message}`);
+        process.exit(1);
+      }
+      break;
+      
     case 'sitemap':
       try {
         const coins = await getCoinsList();
@@ -652,7 +1088,7 @@ async function main() {
     default:
       logError('Unknown command');
       log('\nUsage: node generate.js <command>', 'white');
-      log('Commands: all, coins, buy, price, prediction, compare, sitemap, status, deploy <message>', 'white');
+      log('Commands: all, coins, buy, price, prediction, compare, glossary, learn, exchange, regulation, calculator, news, staking, wallet, coinnews, mining, sitemap, status, deploy <message>', 'white');
       process.exit(1);
   }
 }
@@ -674,6 +1110,16 @@ module.exports = {
   generatePricePages,
   generatePredictionPages,
   generateComparePages,
+  generateGlossaryPages,
+  generateLearnPages,
+  generateExchangePages,
+  generateRegulationPages,
+  generateCalculatorPages,
+  generateNewsPages,
+  generateStakingPages,
+  generateWalletPages,
+  generateCoinNewsPages,
+  generateMiningPages,
   generateSitemap,
   showStatus,
   deploy

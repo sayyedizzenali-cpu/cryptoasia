@@ -4,9 +4,71 @@ import Link from 'next/link'
 
 export const revalidate = 86400 // ISR revalidate every day
 
+
+
+
+
+
+
+
+
+
+
+
+
 export async function generateStaticParams() {
-  const terms = getAllTermSlugs()
-  return terms.map(slug => ({ term: slug }))
+  return [
+    { slug: 'blockchain' },
+    { slug: 'bitcoin' },
+    { slug: 'ethereum' },
+    { slug: 'defi' },
+    { slug: 'nft' },
+    { slug: 'smart-contract' },
+    { slug: 'proof-of-work' },
+    { slug: 'proof-of-stake' },
+    { slug: 'wallet' },
+    { slug: 'staking' },
+    { slug: 'altcoin' },
+    { slug: 'stablecoin' },
+    { slug: 'gas-fee' },
+    { slug: 'mining' },
+    { slug: 'dex' },
+    { slug: 'halving' },
+    { slug: 'dao' },
+    { slug: 'web3' },
+    { slug: 'market-cap' },
+    { slug: 'layer-2' },
+    { slug: 'yield-farming' },
+    { slug: 'seed-phrase' },
+    { slug: 'liquidity-pool' },
+    { slug: 'cold-storage' },
+    { slug: 'bull-market' },
+    { slug: 'bear-market' },
+    { slug: 'dca' },
+    { slug: 'hodl' },
+    { slug: 'amm' },
+    { slug: 'tokenomics' },
+    { slug: 'apy' },
+    { slug: 'private-key' },
+    { slug: 'hash-rate' },
+    { slug: 'fork' },
+    { slug: 'kyc' },
+    { slug: 'whale' },
+    { slug: 'leverage' },
+    { slug: 'futures' },
+    { slug: 'volatility' },
+    { slug: 'slippage' },
+    { slug: 'liquidity' },
+    { slug: 'whitepaper' },
+    { slug: 'ico' },
+    { slug: 'consensus-mechanism' },
+    { slug: 'block-reward' },
+    { slug: 'decentralization' },
+    { slug: 'impermanent-loss' },
+    { slug: 'governance' },
+    { slug: 'circulating-supply' },
+    { slug: 'trading-volume' }
+  ]
 }
 
 export async function generateMetadata({ params }) {

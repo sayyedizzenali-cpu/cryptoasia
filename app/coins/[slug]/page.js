@@ -36,6 +36,18 @@ const TOP_100_COINS = [
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 export async function generateStaticParams() {
   return [
     { slug: 'bitcoin' },
