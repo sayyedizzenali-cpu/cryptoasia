@@ -16,6 +16,8 @@ const TOP_20_COINS = [
 
 
 
+
+
 export async function generateStaticParams() {
   return [
     {       pair: 'bitcoin-vs-ethereum' },

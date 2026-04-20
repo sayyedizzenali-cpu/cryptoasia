@@ -8,10 +8,10 @@ const path = require('path');
 const CONFIG = {
   siteDir: './app',
   maxCoins: 500,
-  batchSize: 5,
+  batchSize: 2,
   delayMs: 3000,
-  countries: ['pakistan','india','indonesia','philippines','bangladesh','malaysia','vietnam','thailand','south-korea','singapore','uae','saudi-arabia','sri-lanka','nepal','japan','china','myanmar','cambodia','laos','mongolia'],
-  currencies: ['pkr','inr','idr','php','bdt','myr','vnd','thb','krw','sgd','aed','sar','usd','eur','gbp','jpy','cad','aud','hkd','twd'],
+  countries: ['pakistan','india','indonesia','philippines','bangladesh','malaysia','vietnam','thailand','south-korea','singapore','uae','saudi-arabia','sri-lanka','nepal','japan','china','myanmar','cambodia','hong-kong','taiwan','iran','iraq','jordan','kuwait','qatar','oman','bahrain','turkey','egypt','nigeria','kenya','ghana','south-africa','ethiopia','tanzania','cameroon','senegal','morocco','algeria','tunisia'],
+  currencies: ['pkr','inr','idr','php','bdt','myr','vnd','thb','krw','sgd','aed','sar','usd','eur','gbp','jpy','cad','aud','hkd','twd','cny','try','egp','ngn','kes','brl','mxn','rub','uah','pln'],
   years: ['2025','2026','2027','2028','2029','2030','2031','2032','2033','2034','2035','2040','2050'],
   coinGeckoApi: 'https://api.coingecko.com/api/v3',
   cacheDir: '.cache'
@@ -317,8 +317,8 @@ function generateBuyPages(coins) {
   const filePath = path.join(CONFIG.siteDir, 'buy/[coin]/[country]/page.js');
   const params = [];
   
-  // Top 50 coins x all countries
-  const topCoins = coins.slice(0, 50);
+  // Top 200 coins x all countries
+  const topCoins = coins.slice(0, 200);
   topCoins.forEach(coin => {
     CONFIG.countries.forEach(country => {
       params.push({ coin: coin.id, country });
@@ -340,9 +340,9 @@ function generatePricePages(coins) {
   const filePath = path.join(CONFIG.siteDir, 'price/[coin]/[currency]/page.js');
   const params = [];
   
-  // Top 100 coins x all currencies
-  const topCoins = coins.slice(0, 100);
-  topCoins.forEach(coin => {
+  // All 500 coins x all currencies
+  const allCoins = coins.slice(0, 500);
+  allCoins.forEach(coin => {
     CONFIG.currencies.forEach(currency => {
       params.push({ coin: coin.id, currency });
     });
@@ -363,8 +363,8 @@ function generatePredictionPages(coins) {
   const filePath = path.join(CONFIG.siteDir, 'prediction/[coin]/[year]/page.js');
   const params = [];
   
-  // Top 50 coins x all years
-  const topCoins = coins.slice(0, 50);
+  // Top 200 coins x all years
+  const topCoins = coins.slice(0, 200);
   topCoins.forEach(coin => {
     CONFIG.years.forEach(year => {
       params.push({ coin: coin.id, year });
