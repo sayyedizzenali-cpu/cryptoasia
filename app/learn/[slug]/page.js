@@ -1,5 +1,6 @@
 import { getCoinDetail } from '@/lib/coingecko';
 import { ASIA_COUNTRIES } from '@/lib/coingecko';
+import { notFound } from 'next/navigation';
 
 // Hardcoded educational articles
 const LEARN_ARTICLES = [
@@ -371,7 +372,7 @@ Regulatory frameworks across Asia are evolving to support blockchain supply chai
   },
   {
     slug: 'central-bank-digital-currencies-asia-future',
-    title: 'Central Bank Digital Currencies: Asia's Digital Future',
+    title: 'Central Bank Digital Currencies: Asia\'s Digital Future',
     description: 'Analysis of CBDC development and implementation across Asian central banks',
     content: `Central Bank Digital Currencies (CBDCs) represent the most significant evolution in monetary policy across Asian economies, with nations at various stages of development and implementation. These digital forms of sovereign currency promise to transform financial systems, payment efficiency, and monetary policy transmission throughout the region.
 
@@ -764,6 +765,14 @@ export const revalidate = 86400; // 24 hours
 
 
 
+
+
+
+
+
+
+
+
 export async function generateStaticParams() {
   return [
     { slug: 'bitcoin-mining' },
@@ -819,63 +828,63 @@ export async function generateStaticParams() {
     { slug: 'memecore-mining' },
     { slug: 'canton-network-mining' },
     { slug: 'stellar-mining' },
-    { slug: 'ethena-usde-mining' },
     { slug: 'zcash-mining' },
+    { slug: 'ethena-usde-mining' },
     { slug: 'dai-mining' },
-    { slug: 'usd1-wlfi-mining' },
     { slug: 'litecoin-mining' },
-    { slug: 'paypal-usd-mining' },
+    { slug: 'usd1-wlfi-mining' },
     { slug: 'avalanche-2-mining' },
     { slug: 'hedera-hashgraph-mining' },
     { slug: 'sui-mining' },
+    { slug: 'paypal-usd-mining' },
     { slug: 'rain-mining' },
     { slug: 'shiba-inu-mining' },
     { slug: 'the-open-network-mining' },
     { slug: 'crypto-com-chain-mining' },
     { slug: 'hashnote-usyc-mining' },
     { slug: 'tether-gold-mining' },
-    { slug: 'blackrock-usd-institutional-digital-liquidity-fund-mining' },
     { slug: 'world-liberty-financial-mining' },
+    { slug: 'blackrock-usd-institutional-digital-liquidity-fund-mining' },
     { slug: 'bittensor-mining' },
     { slug: 'pax-gold-mining' },
     { slug: 'global-dollar-mining' },
     { slug: 'polkadot-mining' },
-    { slug: 'mantle-mining' },
     { slug: 'uniswap-mining' },
+    { slug: 'mantle-mining' },
     { slug: 'sky-mining' },
     { slug: 'falcon-finance-mining' },
+    { slug: 'near-mining' },
     { slug: 'pi-network-mining' },
     { slug: 'okb-mining' },
-    { slug: 'near-mining' },
     { slug: 'aster-2-mining' },
     { slug: 'htx-dao-mining' },
     { slug: 'pepe-mining' },
     { slug: 'janus-henderson-anemoy-treasury-fund-mining' },
     { slug: 'ripple-usd-mining' },
-    { slug: 'internet-computer-mining' },
     { slug: 'aave-mining' },
+    { slug: 'internet-computer-mining' },
     { slug: 'ondo-us-dollar-yield-mining' },
+    { slug: 'ethereum-classic-mining' },
     { slug: 'bitget-token-mining' },
     { slug: 'bfusd-mining' },
     { slug: 'usdd-mining' },
-    { slug: 'ethereum-classic-mining' },
     { slug: 'ondo-finance-mining' },
     { slug: 'kucoin-shares-mining' },
     { slug: 'gatechain-token-mining' },
     { slug: 'quant-network-mining' },
-    { slug: 'morpho-mining' },
     { slug: 'pump-fun-mining' },
+    { slug: 'morpho-mining' },
     { slug: 'united-stables-mining' },
-    { slug: 'eutbl-mining' },
     { slug: 'ethena-mining' },
+    { slug: 'eutbl-mining' },
     { slug: 'polygon-ecosystem-token-mining' },
     { slug: 'kaspa-mining' },
     { slug: 'render-token-mining' },
-    { slug: 'cosmos-mining' },
     { slug: 'algorand-mining' },
+    { slug: 'cosmos-mining' },
     { slug: 'nexo-mining' },
-    { slug: 'usdtb-mining' },
     { slug: 'worldcoin-wld-mining' },
+    { slug: 'usdtb-mining' },
     { slug: 'superstate-short-duration-us-government-securities-fund-ustb-mining' },
     { slug: 'arbitrum-mining' },
     { slug: 'aptos-mining' },

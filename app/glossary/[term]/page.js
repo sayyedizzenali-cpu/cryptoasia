@@ -16,6 +16,10 @@ export const revalidate = 86400 // ISR revalidate every day
 
 
 
+
+
+
+
 export async function generateStaticParams() {
   return [
     { slug: 'blockchain' },

@@ -13,6 +13,7 @@ const CONFIG = {
   countries: ['pakistan','india','indonesia','philippines','bangladesh','malaysia','vietnam','thailand','south-korea','singapore','uae','saudi-arabia','sri-lanka','nepal','japan','china','myanmar','cambodia','hong-kong','taiwan','iran','iraq','jordan','kuwait','qatar','oman','bahrain','turkey','egypt','nigeria','kenya','ghana','south-africa','ethiopia','tanzania','cameroon','senegal','morocco','algeria','tunisia','libya','sudan','uganda','zimbabwe','zambia','mozambique','angola','botswana','namibia','lesotho','swaziland','rwanda','burundi'],
   currencies: ['pkr','inr','idr','php','bdt','myr','vnd','thb','krw','sgd','aed','sar','usd','eur','gbp','jpy','cad','aud','hkd','twd','cny','try','egp','ngn','kes','brl','mxn','rub','uah','pln','chf','sek','nok','dkk','zar','ghs','ugx','tzs','zmw','bwp','nad','mwk','szl','afn','all','amd','aoa','azn','bgn','bob','byn','byr','cdf','clp','cop','crc','cve','czk','djf','dop','dzd','eek','fkp','gel','gip','gmd','gnf','gtq','gyd','hnl','hrk','htg','huf','isk','jmd','jod','kgs','khr','kmf','kpw','kzt','lak','lbp','lkr','mdl','mga','mkd','mmk','mnt','mop','mru','mvr','mzn','nio','nok2','npr','omr','pab','pgk','pyg','qar','ron','rsd','rub2','sbd','scr','sdg','sek2','syp','thb2','tjs','tmt','tnd','top','try2','tvd','uah2','ugx2','uyu','uzs','vef','ves','vnd2','vuv','wst','xaf','xaf','xcd','xdr','xof','xpf','yer','zar2','zmw2','zwl'],
   years: ['2025','2026','2027','2028','2029','2030','2031','2032','2033','2034','2035','2040','2050'],
+  exchanges: ['binance','okx','kucoin','bybit','coinbase','kraken','gate','huobi','mexc','bitget'],
   coinGeckoApi: 'https://api.coingecko.com/api/v3',
   cacheDir: '.cache'
 };
@@ -468,7 +469,7 @@ function generateLearnPages() {
     // Local payment guides (5 guides)
     'jazzcash-crypto', 'easypaisa-crypto', 'upi-crypto-india', 'gcash-crypto-philippines', 'bkash-crypto-bangladesh',
     
-    // Additional comprehensive guides (410+ more)
+    // Additional comprehensive guides (1500+ more)
     'cryptocurrency-basics', 'how-to-buy-bitcoin', 'ethereum-smart-contracts', 'defi-guide', 'nft-explained',
     'crypto-trading-strategies', 'staking-rewards', 'wallet-security', 'market-analysis', 'technical-analysis',
     'fundamental-analysis', 'risk-management', 'portfolio-diversification', 'tax-guide', 'regulation-overview',
@@ -523,7 +524,126 @@ function generateLearnPages() {
     'mining-history', 'early-bitcoin-mining', 'mining-evolution', 'mining-milestones', 'mining-innovations', 'mining-breakthroughs', 'mining-future-trends',
     'mining-regions', 'asia-mining', 'europe-mining', 'america-mining', 'africa-mining', 'middle-east-mining', 'global-mining-hubs',
     'mining-companies', 'bitmain-mining', 'microbt-mining', 'innosilicon-mining', 'canaan-mining', 'goldshell-mining', 'mining-manufacturers',
-    'mining-accessories', 'mining-psu', 'mining-motherboards', 'mining-frames', 'mining-cables', 'mining-monitoring', 'mining-automation'
+    'mining-accessories', 'mining-psu', 'mining-motherboards', 'mining-frames', 'mining-cables', 'mining-monitoring', 'mining-automation',
+    // Trading strategies (100 articles)
+    'day-trading-bitcoin', 'day-trading-ethereum', 'day-trading-solana', 'day-trading-bnb', 'day-trading-xrp', 'day-trading-cardano',
+    'swing-trading-bitcoin', 'swing-trading-ethereum', 'swing-trading-solana', 'swing-trading-bnb', 'swing-trading-xrp', 'swing-trading-cardano',
+    'position-trading-bitcoin', 'position-trading-ethereum', 'position-trading-solana', 'position-trading-bnb', 'position-trading-xrp', 'position-trading-cardano',
+    'scalping-crypto', 'scalping-bitcoin', 'scalping-ethereum', 'scalping-solana', 'scalping-bnb', 'scalping-xrp', 'scalping-cardano',
+    'arbitrage-trading', 'triangular-arbitrage', 'statistical-arbitrage', 'cross-exchange-arbitrage', 'defi-arbitrage', 'nft-arbitrage',
+    'market-making', 'liquidity-provision', 'market-making-strategies', 'automated-market-making', 'passive-market-making', 'active-market-making',
+    'technical-indicators', 'rsi-trading', 'macd-trading', 'bollinger-bands', 'moving-averages', 'fibonacci-retracement', 'ichimoku-cloud',
+    'chart-patterns', 'head-and-shoulders', 'double-top-double-bottom', 'triangles-patterns', 'wedge-patterns', 'flag-patterns', 'pennant-patterns',
+    'candlestick-patterns', 'doji-patterns', 'hammer-patterns', 'engulfing-patterns', 'morning-star', 'evening-star', 'shooting-star',
+    'volume-analysis', 'volume-profile', 'on-balance-volume', 'volume-weighted-price', 'money-flow-index', 'accumulation-distribution',
+    'market-psychology', 'fear-and-greed-index', 'market-sentiment', 'contrarian-trading', 'momentum-trading', 'mean-reversion',
+    'risk-management', 'position-sizing', 'stop-loss-strategies', 'take-profit-strategies', 'risk-reward-ratio', 'portfolio-hedging',
+    'trading-psychology', 'trading-discipline', 'emotional-control', 'trading-journal', 'trading-routine', 'trading-habits',
+    'algorithmic-trading', 'crypto-bots', 'trading-algorithms', 'backtesting-strategies', 'forward-testing', 'optimization-techniques',
+    'fundamental-analysis', 'crypto-fundamentals', 'tokenomics-analysis', 'project-evaluation', 'team-analysis', 'technology-assessment',
+    'crypto-news-trading', 'news-based-trading', 'event-driven-trading', 'earnings-reports', 'partnership-news', 'regulation-news',
+    'seasonal-trading', 'crypto-seasons', 'market-cycles', 'bull-bear-cycles', 'halving-effects', 'macro-economic-factors',
+    'cross-market-analysis', 'crypto-stocks', 'crypto-commodities', 'crypto-forex', 'correlation-analysis', 'intermarket-analysis',
+    'advanced-trading', 'leverage-trading', 'margin-trading', 'short-selling', 'options-trading', 'futures-trading',
+    'trading-tools', 'trading-platforms', 'charting-software', 'trading-indicators', 'trading-screens', 'trading-setups',
+    'trading-education', 'trading-courses', 'trading-books', 'trading-mentors', 'trading-communities', 'trading-forums',
+    'trading-mistakes', 'common-trading-errors', 'psychological-biases', 'overtrading', 'revenge-trading', 'fear-based-trading',
+    'trading-success', 'profitable-trading', 'consistent-trading', 'professional-trading', 'institutional-trading', 'retail-trading',
+    // DeFi guides (100 articles)
+    'defi-basics', 'decentralized-finance', 'defi-ecosystem', 'defi-protocols', 'defi-platforms', 'defi-applications',
+    'defi-lending', 'crypto-lending', 'peer-to-peer-lending', 'flash-loans', 'under-collateralized-loans', 'over-collateralized-loans',
+    'defi-borrowing', 'crypto-borrowing', 'margin-borrowing', 'stablecoin-borrowing', 'collateralized-borrowing', 'un-collateralized-borrowing',
+    'defi-staking', 'liquid-staking', 'staking-pools', 'staking-rewards', 'staking-yields', 'staking-risks',
+    'defi-yield-farming', 'yield-farming-strategies', 'liquidity-mining', 'yield-aggregation', 'auto-compounding', 'impermanent-loss',
+    'defi-exchanges', 'decentralized-exchanges', 'automated-market-makers', 'order-book-dex', 'hybrid-exchanges', 'cross-chain-dex',
+    'defi-derivatives', 'decentralized-derivatives', 'perpetual-swaps', 'options-protocols', 'prediction-markets', 'synthetic-assets',
+    'defi-insurance', 'crypto-insurance', 'smart-contract-insurance', 'hedge-funds', 'risk-pools', 'coverage-protocols',
+    'defi-governance', 'dao-governance', 'governance-tokens', 'voting-mechanisms', 'quadratic-voting', 'delegation-systems',
+    'defi-oracles', 'price-oracles', 'chainlink-oracles', 'band-protocol', 'pyth-network', 'oracle-networks',
+    'defi-bridges', 'cross-chain-bridges', 'asset-bridges', 'liquidity-bridges', 'bridge-aggregators', 'bridge-security',
+    'defi-aggregators', 'yield-aggregators', 'dex-aggregators', 'lending-aggregators', 'protocol-aggregators', 'meta-aggregators',
+    'defi-wallets', 'defi-compatible-wallets', 'hardware-wallets-defi', 'mobile-wallets-defi', 'browser-wallets-defi', 'web3-wallets',
+    'defi-security', 'smart-contract-audits', 'security-best-practices', 'rug-pull-protection', 'flash-crash-protection', 'mev-protection',
+    'defi-risks', 'smart-contract-risk', 'liquidation-risk', 'oracle-risk', 'counterparty-risk', 'systemic-risk',
+    'defi-regulation', 'defi-compliance', 'regulatory-challenges', 'legal-frameworks', 'defi-taxation', 'defi-reporting',
+    'defi-scalability', 'layer-2-defi', 'sidechain-defi', 'rollup-defi', 'state-channel-defi', 'sharding-defi',
+    'defi-interoperability', 'cross-chain-defi', 'multi-chain-defi', 'interoperable-protocols', 'standardized-protocols', 'protocol-bridges',
+    'defi-innovation', 'defi-2-0', 'real-world-assets', 'tokenized-securities', 'defi-derivatives', 'defi-insurance',
+    'defi-adoption', 'defi-users', 'defi-tvl', 'defi-growth', 'defi-metrics', 'defi-analytics',
+    'defi-future', 'defi-trends', 'defi-evolution', 'defi-roadmap', 'defi-challenges', 'defi-opportunities',
+    // NFT guides (100 articles)
+    'nft-basics', 'what-are-nfts', 'nft-technology', 'nft-blockchain', 'nft-standards', 'nft-protocols',
+    'nft-marketplaces', 'opensea-guide', 'rarible-guide', 'magic-eden-guide', 'looks-rare-guide', 'blur-guide',
+    'nft-collections', 'bored-ape-yacht-club', 'cryptopunks', 'azuki', 'doodles', 'moonbirds', 'clone-x',
+    'nft-art', 'digital-art-nfts', 'generative-art', 'ai-art-nfts', 'photography-nfts', 'music-nfts',
+    'nft-gaming', 'game-nfts', 'play-to-earn-nfts', 'metaverse-nfts', 'virtual-land-nfts', 'gaming-assets-nfts',
+    'nft-investing', 'nft-flipping', 'nft-holding', 'nft-diversification', 'nft-valuation', 'nft-analysis',
+    'nft-creation', 'nft-minting', 'nft-design', 'nft-programming', 'nft-smart-contracts', 'nft-development',
+    'nft-storage', 'nft-metadata', 'ipfs-nfts', 'arweave-nfts', 'nft-hosting', 'nft-backup',
+    'nft-security', 'nft-scams', 'nft-fraud', 'nft-protection', 'nft-verification', 'nft-authenticity',
+    'nft-royalties', 'creator-royalties', 'secondary-sales', 'royalty-standards', 'royalty-enforcement', 'royalty-splitting',
+    'nft-communities', 'nft-social', 'nft-discord', 'nft-twitter', 'nft-forums', 'nft-groups',
+    'nft-marketing', 'nft-promotion', 'nft-influencers', 'nft-advertising', 'nft-branding', 'nft-strategy',
+    'nft-legal', 'nft-copyright', 'nft-intellectual-property', 'nft-licenses', 'nft-compliance', 'nft-regulation',
+    'nft-tax', 'nft-taxation', 'nft-capital-gains', 'nft-income-tax', 'nft-reporting', 'nft-deductions',
+    'nft-trends', 'nft-market-trends', 'nft-price-trends', 'nft-collection-trends', 'nft-technology-trends', 'nft-future-trends',
+    'nft-analytics', 'nft-data-analysis', 'nft-market-analysis', 'nft-collection-analysis', 'nft-price-analysis', 'nft-trend-analysis',
+    'nft-tools', 'nft-trackers', 'nft-alerts', 'nft-calculators', 'nft-portfolio-tools', 'nft-management-tools',
+    'nft-education', 'nft-courses', 'nft-tutorials', 'nft-guides', 'nft-books', 'nft-resources',
+    'nft-careers', 'nft-jobs', 'nft-artists', 'nft-developers', 'nft-marketers', 'nft-consultants',
+    // Metaverse guides (100 articles)
+    'metaverse-basics', 'what-is-metaverse', 'metaverse-technology', 'metaverse-platforms', 'metaverse-economy', 'metaverse-future',
+    'metaverse-platforms', 'decentraland-guide', 'the-sandbox-guide', 'roblox-metaverse', 'fortnite-metaverse', 'meta-horizon',
+    'metaverse-real-estate', 'virtual-land', 'metaverse-property', 'digital-real-estate', 'land-investment', 'property-development',
+    'metaverse-gaming', 'metaverse-games', 'virtual-gaming', 'immersive-gaming', 'multiplayer-games', 'social-gaming',
+    'metaverse-social', 'virtual-socializing', 'metaverse-communities', 'social-platforms', 'virtual-events', 'social-interaction',
+    'metaverse-business', 'virtual-business', 'metaverse-commerce', 'digital-commerce', 'virtual-stores', 'metaverse-marketing',
+    'metaverse-careers', 'metaverse-jobs', 'virtual-work', 'remote-work', 'digital-nomads', 'metaverse-professions',
+    'metaverse-education', 'virtual-learning', 'metaverse-schools', 'digital-education', 'immersive-learning', 'virtual-classrooms',
+    'metaverse-entertainment', 'virtual-entertainment', 'metaverse-events', 'digital-concerts', 'virtual-movies', 'immersive-media',
+    'metaverse-fashion', 'digital-fashion', 'virtual-clothing', 'nft-fashion', 'metaverse-style', 'digital-design',
+    'metaverse-art', 'virtual-art', 'digital-galleries', 'nft-art-metaverse', 'immersive-art', '3d-art',
+    'metaverse-music', 'virtual-concerts', 'digital-music', 'nft-music-metaverse', 'immersive-audio', '3d-audio',
+    'metaverse-sports', 'virtual-sports', 'digital-athletics', 'metaverse-gaming-sports', 'immersive-sports', 'competitive-gaming',
+    'metaverse-fitness', 'virtual-fitness', 'digital-workouts', 'metaverse-exercise', 'immersive-fitness', 'virtual-training',
+    'metaverse-travel', 'virtual-tourism', 'digital-travel', 'metaverse-destinations', 'immersive-travel', 'virtual-experiences',
+    'metaverse-health', 'virtual-healthcare', 'digital-medicine', 'metaverse-therapy', 'immersive-health', 'virtual-wellness',
+    'metaverse-finance', 'virtual-banking', 'digital-finance', 'metaverse-crypto', 'defi-metaverse', 'virtual-economy',
+    'metaverse-technology', 'vr-technology', 'ar-technology', 'mixed-reality', 'haptic-technology', 'immersive-tech',
+    'metaverse-hardware', 'vr-headsets', 'ar-glasses', 'haptic-devices', 'motion-sensors', 'immersive-equipment',
+    'metaverse-software', 'vr-applications', 'ar-applications', 'metaverse-platforms', 'immersive-software', 'virtual-tools',
+    'metaverse-development', 'vr-development', 'ar-development', 'metaverse-programming', 'immersive-design', 'virtual-creation',
+    'metaverse-investment', 'metaverse-investing', 'virtual-assets', 'metaverse-tokens', 'digital-investment', 'immersive-finance',
+    'metaverse-regulation', 'metaverse-laws', 'virtual-regulation', 'digital-compliance', 'metaverse-policy', 'immersive-governance',
+    'metaverse-security', 'virtual-security', 'digital-protection', 'metaverse-privacy', 'immersive-safety', 'virtual-defense',
+    'metaverse-future', 'metaverse-evolution', 'virtual-future', 'digital-evolution', 'immersive-future', 'metaverse-trends',
+    // Web3 guides (100 articles)
+    'web3-basics', 'what-is-web3', 'web3-technology', 'web3-ecosystem', 'web3-applications', 'web3-future',
+    'web3-development', 'smart-contract-development', 'dapp-development', 'web3-programming', 'blockchain-development', 'decentralized-apps',
+    'web3-languages', 'solidity-programming', 'rust-programming', 'javascript-web3', 'python-web3', 'go-web3',
+    'web3-frameworks', 'hardhat-framework', 'truffle-framework', 'foundry-framework', 'web3js-framework', 'ethersjs-framework',
+    'web3-storage', 'ipfs-storage', 'arweave-storage', 'decentralized-storage', 'distributed-storage', 'filecoin-storage',
+    'web3-identity', 'decentralized-identity', 'did-standards', 'self-sovereign-identity', 'blockchain-identity', 'digital-identity',
+    'web3-authentication', 'wallet-authentication', 'signature-authentication', 'decentralized-auth', 'web3-login', 'crypto-auth',
+    'web3-social', 'decentralized-social', 'social-fi', 'web3-social-networks', 'tokenized-social', 'community-tokens',
+    'web3-content', 'decentralized-content', 'content-nfts', 'web3-publishing', 'tokenized-content', 'creator-economy',
+    'web3-gaming', 'blockchain-gaming', 'play-to-earn', 'game-fi', 'nft-gaming', 'metaverse-gaming',
+    'web3-commerce', 'decentralized-commerce', 'nft-commerce', 'web3-marketplaces', 'tokenized-commerce', 'crypto-commerce',
+    'web3-finance', 'decentralized-finance', 'defi-protocols', 'web3-banking', 'crypto-finance', 'tokenized-finance',
+    'web3-governance', 'dao-governance', 'token-governance', 'decentralized-governance', 'community-governance', 'web3-democracy',
+    'web3-privacy', 'privacy-preserving', 'zero-knowledge-proofs', 'anonymous-transactions', 'privacy-coins', 'confidential-transactions',
+    'web3-scalability', 'layer-2-solutions', 'sidechains', 'rollups', 'state-channels', 'sharding',
+    'web3-interoperability', 'cross-chain-protocols', 'interoperable-dapps', 'multi-chain-dapps', 'bridge-protocols', 'standardized-protocols',
+    'web3-security', 'smart-contract-security', 'web3-audits', 'security-best-practices', 'bug-bounties', 'security-tools',
+    'web3-ux', 'web3-user-experience', 'wallet-integration', 'dapp-usability', 'web3-design', 'user-onboarding',
+    'web3-analytics', 'on-chain-analytics', 'web3-metrics', 'blockchain-analytics', 'crypto-analytics', 'decentralized-analytics',
+    'web3-tools', 'web3-development-tools', 'blockchain-tools', 'crypto-tools', 'decentralized-tools', 'web3-infrastructure',
+    'web3-education', 'web3-courses', 'blockchain-education', 'crypto-education', 'decentralized-education', 'web3-resources',
+    'web3-careers', 'web3-jobs', 'blockchain-careers', 'crypto-careers', 'defi-careers', 'web3-professions',
+    'web3-investment', 'web3-ventures', 'blockchain-investment', 'crypto-ventures', 'defi-investment', 'web3-startups',
+    'web3-regulation', 'web3-laws', 'blockchain-regulation', 'crypto-regulation', 'defi-regulation', 'web3-compliance',
+    'web3-adoption', 'web3-users', 'blockchain-adoption', 'crypto-adoption', 'defi-adoption', 'web3-growth',
+    'web3-future', 'web3-trends', 'blockchain-future', 'crypto-future', 'defi-future', 'web3-evolution'
   ];
   
   const success = updateGenerateStaticParams(filePath, learnArticles);
@@ -699,6 +819,121 @@ function generateCoinNewsPages(coins) {
   const success = updateGenerateStaticParams(filePath, params);
   if (success) {
     logSuccess(`Generated ${params.length} coin news pages`);
+  }
+  
+  return success;
+}
+
+// GENERATE COIN COUNTRY PAGES
+function generateCoinCountryPages(coins) {
+  logInfo('Generating coin country pages...');
+  
+  const filePath = path.join(CONFIG.siteDir, 'coin-price/[coin]/[country]/page.js');
+  const params = [];
+  
+  // 500 coins × 50 countries = 25,000 pages
+  const allCoins = coins.slice(0, 500);
+  const topCountries = CONFIG.countries.slice(0, 50);
+  
+  allCoins.forEach(coin => {
+    topCountries.forEach(country => {
+      params.push({ coin: coin.id, country });
+    });
+  });
+  
+  const success = updateGenerateStaticParams(filePath, params);
+  if (success) {
+    logSuccess(`Generated ${params.length} coin country pages`);
+  }
+  
+  return success;
+}
+
+// GENERATE COIN EXCHANGE PAGES
+function generateCoinExchangePages(coins) {
+  logInfo('Generating coin exchange pages...');
+  
+  const filePath = path.join(CONFIG.siteDir, 'buy-on/[coin]/[exchange]/page.js');
+  const params = [];
+  
+  // 500 coins × 10 exchanges = 5,000 pages
+  const allCoins = coins.slice(0, 500);
+  
+  allCoins.forEach(coin => {
+    CONFIG.exchanges.forEach(exchange => {
+      params.push({ coin: coin.id, exchange });
+    });
+  });
+  
+  const success = updateGenerateStaticParams(filePath, params);
+  if (success) {
+    logSuccess(`Generated ${params.length} coin exchange pages`);
+  }
+  
+  return success;
+}
+
+// GENERATE COIN VS COIN PAGES
+function generateCoinVsCoinPages(coins) {
+  logInfo('Generating coin vs coin pages...');
+  
+  const filePath = path.join(CONFIG.siteDir, 'versus/[coin1]/[coin2]/page.js');
+  const params = [];
+  
+  // Top 200 coins combinations = 19,900 pages
+  const topCoins = coins.slice(0, 200);
+  
+  for (let i = 0; i < topCoins.length; i++) {
+    for (let j = i + 1; j < topCoins.length; j++) {
+      params.push({ coin1: topCoins[i].id, coin2: topCoins[j].id });
+    }
+  }
+  
+  const success = updateGenerateStaticParams(filePath, params);
+  if (success) {
+    logSuccess(`Generated ${params.length} coin vs coin pages`);
+  }
+  
+  return success;
+}
+
+// GENERATE HOW TO BUY PAGES
+function generateHowToBuyPages(coins) {
+  logInfo('Generating how to buy pages...');
+  
+  const filePath = path.join(CONFIG.siteDir, 'how-to-buy/[coin]/page.js');
+  const params = [];
+  
+  // 500 coins = 500 pages
+  const allCoins = coins.slice(0, 500);
+  allCoins.forEach(coin => {
+    params.push({ coin: coin.id });
+  });
+  
+  const success = updateGenerateStaticParams(filePath, params);
+  if (success) {
+    logSuccess(`Generated ${params.length} how to buy pages`);
+  }
+  
+  return success;
+}
+
+// GENERATE COIN REVIEW PAGES
+function generateCoinReviewPages(coins) {
+  logInfo('Generating coin review pages...');
+  
+  const filePath = path.join(CONFIG.siteDir, 'review/[coin]/page.js');
+  const params = [];
+  
+  // 500 coins = 500 pages
+  const allCoins = coins.slice(0, 500);
+  allCoins.forEach(coin => {
+    params.push({ coin: coin.id });
+  });
+  
+  const success = updateGenerateStaticParams(filePath, params);
+  if (success) {
+    logSuccess(`Generated ${params.length} coin review pages`);
   }
   
   return success;
@@ -1052,6 +1287,56 @@ async function main() {
         generateCoinNewsPages(coins);
       } catch (error) {
         logError(`Coin news pages generation failed: ${error.message}`);
+        process.exit(1);
+      }
+      break;
+      
+    case 'coin-country':
+      try {
+        const coins = await getCoinsList();
+        generateCoinCountryPages(coins);
+      } catch (error) {
+        logError(`Coin country pages generation failed: ${error.message}`);
+        process.exit(1);
+      }
+      break;
+      
+    case 'coin-exchange':
+      try {
+        const coins = await getCoinsList();
+        generateCoinExchangePages(coins);
+      } catch (error) {
+        logError(`Coin exchange pages generation failed: ${error.message}`);
+        process.exit(1);
+      }
+      break;
+      
+    case 'coin-vs-coin':
+      try {
+        const coins = await getCoinsList();
+        generateCoinVsCoinPages(coins);
+      } catch (error) {
+        logError(`Coin vs coin pages generation failed: ${error.message}`);
+        process.exit(1);
+      }
+      break;
+      
+    case 'how-to-buy':
+      try {
+        const coins = await getCoinsList();
+        generateHowToBuyPages(coins);
+      } catch (error) {
+        logError(`How to buy pages generation failed: ${error.message}`);
+        process.exit(1);
+      }
+      break;
+      
+    case 'coin-review':
+      try {
+        const coins = await getCoinsList();
+        generateCoinReviewPages(coins);
+      } catch (error) {
+        logError(`Coin review pages generation failed: ${error.message}`);
         process.exit(1);
       }
       break;
