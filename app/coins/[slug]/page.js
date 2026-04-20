@@ -854,19 +854,37 @@ export default async function CoinPage({ params }) {
   } catch (error) {
     console.error('Coin page error:', error)
     
+    // Check if it's a rate limit error
+    const isRateLimitError = error.message.includes('429') || error.message.includes('rate limit')
+    
     return (
       <div className="min-h-screen bg-gray-900 flex items-center justify-center">
-        <div className="text-center">
-          <h1 className="text-4xl font-bold text-white mb-4">Coin Not Found</h1>
+        <div className="text-center max-w-2xl mx-auto px-4">
+          <h1 className="text-4xl font-bold text-white mb-4">
+            {isRateLimitError ? 'Rate Limit Exceeded' : 'Coin Not Found'}
+          </h1>
           <p className="text-gray-300 mb-8">
-            The cryptocurrency you're looking for doesn't exist or has been delisted.
+            {isRateLimitError 
+              ? 'We are currently experiencing high traffic. Please try again in a few minutes.'
+              : 'The cryptocurrency you\'re looking for doesn\'t exist or has been delisted.'
+            }
           </p>
-          <Link
-            href="/"
-            className="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-700 transition-colors"
-          >
-            Back to Homepage
-          </Link>
+          <div className="space-x-4">
+            <Link
+              href="/"
+              className="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-700 transition-colors"
+            >
+              Back to Homepage
+            </Link>
+            {isRateLimitError && (
+              <button
+                onClick={() => window.location.reload()}
+                className="inline-block bg-gray-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-gray-700 transition-colors"
+              >
+                Try Again
+              </button>
+            )}
+          </div>
         </div>
       </div>
     )

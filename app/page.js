@@ -34,21 +34,22 @@ export const metadata = {
 }
 
 export default async function HomePage() {
-  // Fetch data in parallel
-  const [topCoins, globalData, trendingCoins] = await Promise.all([
-    getTopCoins('usd', 100),
-    getGlobalData(),
-    getTrending()
-  ])
+  try {
+    // Fetch data in parallel
+    const [topCoins, globalData, trendingCoins] = await Promise.all([
+      getTopCoins('usd', 100),
+      getGlobalData(),
+      getTrending()
+    ])
 
-  // Calculate global stats
-  const globalStats = {
-    totalMarketCap: globalData?.total_market_cap?.usd || 0,
-    totalVolume: globalData?.total_volume?.usd || 0,
-    btcDominance: globalData?.market_cap_percentage?.btc || 0,
-    ethDominance: globalData?.market_cap_percentage?.eth || 0,
-    activeCryptocurrencies: globalData?.active_cryptocurrencies || 0
-  }
+    // Calculate global stats
+    const globalStats = {
+      totalMarketCap: globalData?.total_market_cap?.usd || 0,
+      totalVolume: globalData?.total_volume?.usd || 0,
+      btcDominance: globalData?.market_cap_percentage?.btc || 0,
+      ethDominance: globalData?.market_cap_percentage?.eth || 0,
+      activeCryptocurrencies: globalData?.active_cryptocurrencies || 0
+    }
 
   return (
     <div className="min-h-screen" style={{ backgroundColor: '#0d1117' }}>
@@ -294,5 +295,35 @@ export default async function HomePage() {
         </div>
       </div>
     </div>
-  )
+    )
+  } catch (error) {
+    console.error('Homepage error:', error)
+    
+    // Check if it's a rate limit error
+    const isRateLimitError = error.message.includes('429') || error.message.includes('rate limit')
+    
+    return (
+      <div className="min-h-screen bg-gray-900 flex items-center justify-center">
+        <div className="text-center max-w-2xl mx-auto px-4">
+          <h1 className="text-4xl font-bold text-white mb-4">
+            {isRateLimitError ? 'Rate Limit Exceeded' : 'Service Unavailable'}
+          </h1>
+          <p className="text-gray-300 mb-8">
+            {isRateLimitError 
+              ? 'We are currently experiencing high traffic. Please try again in a few minutes.'
+              : 'The cryptocurrency data service is temporarily unavailable. Please try again later.'
+            }
+          </p>
+          <div className="space-x-4">
+            <button
+              onClick={() => window.location.reload()}
+              className="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-700 transition-colors"
+            >
+              Try Again
+            </button>
+          </div>
+        </div>
+      </div>
+    )
+  }
 }
