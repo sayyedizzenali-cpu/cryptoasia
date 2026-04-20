@@ -1,6 +1,4 @@
-import { BreadcrumbList, FAQPage } from '@/schemas';
 import { getCoinDetail, formatPrice } from '@/lib/coingecko';
-import { getBreadcrumbJsonLd } from '@/lib/breadcrumbs';
 
 export const dynamicParams = true;
 export const revalidate = 3600;
@@ -37,11 +35,30 @@ export default async function StakingPage({ params }) {
   const coinName = params.coin.charAt(0).toUpperCase() + params.coin.slice(1);
   const coinDetail = await getCoinDetail(params.coin);
   
-  const breadcrumbJsonLd = getBreadcrumbJsonLd([
-    { name: 'Home', url: '/' },
-    { name: 'Staking', url: '/staking' },
-    { name: coinName, url: `/staking/${params.coin}` }
-  ]);
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Staking",
+        "item": "/staking"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": coinName,
+        "item": `/staking/${params.coin}`
+      }
+    ]
+  };
 
   const stakingPlatforms = [
     { name: 'Official Network', apy: '5.2%', type: 'Native', minStake: '1', lockPeriod: 'Flexible' },
@@ -78,7 +95,7 @@ export default async function StakingPage({ params }) {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
       <script
         type="application/ld+json"
